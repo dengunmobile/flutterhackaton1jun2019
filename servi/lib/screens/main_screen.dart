@@ -55,10 +55,10 @@ class _MainScreen extends State<MainScreen> {
           icon: Icon(Icons.home, color: Colors.grey),
           title: Text("Discover", style: bottomTabTextStyle()),
         ),
-//        BottomNavigationBarItem(
-//            icon: Icon(Icons.event, color: Colors.grey),
-//            title: Text("Create Service", style: bottomTabTextStyle())
-//        ),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.event, color: Colors.grey),
+            title: Text("Create Service", style: bottomTabTextStyle())
+        ),
         BottomNavigationBarItem(
             icon: Icon(Icons.account_box, color: Colors.grey),
             title: Text("Account", style: bottomTabTextStyle())
@@ -73,16 +73,16 @@ class _MainScreen extends State<MainScreen> {
       ),
       body: _children[_currentIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _currentIndex = 1;
-          });
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-        elevation: 2.0,
-      ),
+//      floatingActionButton: FloatingActionButton(
+//        onPressed: () {
+//          setState(() {
+//            _currentIndex = 1;
+//          });
+//        },
+//        tooltip: 'Increment',
+//        child: Icon(Icons.add),
+//        elevation: 2.0,
+//      ),
       bottomNavigationBar: bottomNavigationBar,
 //      bottomNavigationBar: BottomAppBar(
 //        child: Row(
