@@ -33,6 +33,10 @@ dependencies:
   cloud_firestore: ^0.8.2+3
   google_sign_in: 3.2.4
 
+  provider: 2.0.1
+
+  rxdart: 0.22.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
