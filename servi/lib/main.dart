@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:servi/screens/event_detail_screen.dart';
 import 'package:servi/screens/main_screen.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +12,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainScreen(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => MainScreen(),
+        "/details" : (context) => EventDetailScreen()
+
+      },
     );
   }
 }
