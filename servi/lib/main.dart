@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:servi/screens/landing_screen.dart';
-import 'package:servi/screens/main_screen.dart';
-import 'package:servi/service/auth_service.dart';
 import 'package:provider/provider.dart';
+import 'package:servi/screens/landing_screen.dart';
+import 'package:servi/service/auth_service.dart';
+
 
 void main() => runApp(MyAppBloc());
 
-//class MyApp extends StatelessWidget {
-//  // This widget is the root of your application.
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Servi',
-//      theme: ThemeData(
-//        primarySwatch: Colors.blue,
-//      ),
-//      home: MainScreen(),
-//    );
-//  }
-//}
 
 class MyAppBloc extends StatelessWidget {
 
@@ -26,10 +13,18 @@ class MyAppBloc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    /// Create Provider to handle the auth state when authenticate
+    /// using an user registered on Cloud Firebase
+    ///
+    /// Implements [AuthService]
+    /// loads [LoadingPage] widget
+
     return Provider<AuthService>(
       builder: (_) => authServiceImpl,
       dispose: (_, AuthService authService) => authServiceImpl.dispose(),
       child: MaterialApp(
+          title: 'Servi',
           theme: ThemeData(
             primarySwatch: Colors.indigo,
           ),

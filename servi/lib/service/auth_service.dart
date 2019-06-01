@@ -9,12 +9,13 @@ abstract class AuthService {
 
 class ResultStream {
   String data;
-
+  bool error;
   FirebaseUser user;
 
   ResultStream({
-    this.user
-});
+    this.user,
+    this.error
+  });
 }
 
 enum AuthServiceType { FIREBASE }
@@ -42,28 +43,17 @@ class AuthServiceImpl implements AuthService {
       password: "123456",
     );
     if (user != null) {
-
-      Future.delayed(const Duration(seconds: 5), () =>
-          _onAuthStateChangedController.add(ResultStream(user: user))
-      );
-
-
-
       print(user.email);
-//      setState(() {
-//        _success = true;
-//        _userEmail = user.email;
-//      });
+      Future.delayed(const Duration(seconds: 2), () => _onAuthStateChangedController.add(ResultStream(user: user, error: false)));
+
     } else {
-//      _success = false;
+      _onAuthStateChangedController.add(ResultStream(user: null, error: true));
     }
   }
 
   void setup() {
 
     _signInWithEmailAndPassword();
-
-
 
   }
 
