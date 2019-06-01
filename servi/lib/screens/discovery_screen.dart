@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -9,6 +10,12 @@ class DiscoveryScreen extends StatefulWidget {
 
 class _DiscoveryScreenState extends State<DiscoveryScreen> {
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -18,16 +25,24 @@ class _DiscoveryScreenState extends State<DiscoveryScreen> {
           children: <Widget>[
             _buildAppBar(screenWidth: screenWidth),
             _buildMentorsView(),
+            SizedBox(height: 20),
             _buildWorkshopsView(),
+            SizedBox(height: 20),
             _buildTalksView(),
           ],
         ),
       ),
     );
   }
+
+  void getData() async {
+    Firestore.instance
+        .collection('service')
+        .document()
+        .get()
+        .then((v) => print(v.data));
+  }
 }
-
-
 
 class _buildTalksView extends StatelessWidget {
   const _buildTalksView({
@@ -51,25 +66,23 @@ class _buildTalksView extends StatelessWidget {
         SizedBox(height: 16.0),
         Container(
           height: 440,
-          child: IgnorePointer(
-            child: GridView(
-              shrinkWrap: true,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              children: <Widget>[
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-              ],
-            ),
+          child: GridView(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            children: <Widget>[
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+            ],
           ),
         ),
       ],
     );
   }
 }
-
 
 class _buildWorkshopsView extends StatelessWidget {
   const _buildWorkshopsView({
@@ -93,18 +106,17 @@ class _buildWorkshopsView extends StatelessWidget {
         SizedBox(height: 16.0),
         Container(
           height: 440,
-          child: IgnorePointer(
-            child: GridView(
-              shrinkWrap: true,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              children: <Widget>[
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-                _buildWorkshopListItem(),
-              ],
-            ),
+          child: GridView(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            children: <Widget>[
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+              _buildWorkshopListItem(),
+            ],
           ),
         ),
       ],
@@ -117,39 +129,48 @@ class _buildWorkshopListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-              height: 150,
-              decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, "/details");
+      },
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: 150,
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://i0.wp.com/berlinlovesyou.com/wp-content/uploads/2017/02/facebook_event_666663943505763.jpg?fit=720%2C405")))),
-          SizedBox(height: 8.0),
-          Text(
-            "MY WORKSHOP",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontSize: 14.0),
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        "https://i0.wp.com/berlinlovesyou.com/wp-content/uploads/2017/02/facebook_event_666663943505763.jpg?fit=720%2C405"),
+                  ),
+                ),
+              ),
+              Text(
+                "MY WORKSHOP",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 14.0),
+              ),
+              Container(
+                height: 30.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    _buildEventParticipantList(),
+                    _buildStarsWidget()
+                  ],
+                ),
+              )
+            ],
           ),
-          Container(
-            height: 30.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _buildEventParticipantList(),
-                _buildStarsWidget()
-              ],
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
@@ -189,7 +210,12 @@ class _buildEventParticipantList extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(left: 48.0, child: Text("+15", style: TextStyle(fontSize: 12.0),))
+          Positioned(
+              left: 48.0,
+              child: Text(
+                "+15",
+                style: TextStyle(fontSize: 12.0),
+              ))
         ],
       ),
     );
@@ -207,11 +233,26 @@ class _buildStarsWidget extends StatelessWidget {
       width: 100,
       child: Row(
         children: <Widget>[
-          Icon(Icons.star_border, size: 20.0,),
-          Icon(Icons.star_border, size: 20.0,),
-          Icon(Icons.star_border, size: 20.0,),
-          Icon(Icons.star_border, size: 20.0,),
-          Icon(Icons.star_border, size: 20.0,),
+          Icon(
+            Icons.star_border,
+            size: 20.0,
+          ),
+          Icon(
+            Icons.star_border,
+            size: 20.0,
+          ),
+          Icon(
+            Icons.star_border,
+            size: 20.0,
+          ),
+          Icon(
+            Icons.star_border,
+            size: 20.0,
+          ),
+          Icon(
+            Icons.star_border,
+            size: 20.0,
+          ),
         ],
       ),
     );
@@ -262,14 +303,17 @@ class _buildMentorsListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
       child: Container(
-          height: 80.0,
-          width: 80.0,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                      "https://randomuser.me/api/portraits/women/14.jpg")))),
+        height: 80.0,
+        width: 80.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: NetworkImage(
+                "https://randomuser.me/api/portraits/women/14.jpg"),
+          ),
+        ),
+      ),
     );
   }
 }
