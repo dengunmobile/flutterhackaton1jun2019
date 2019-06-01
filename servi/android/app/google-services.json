@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "33851561081",
+    "firebase_url": "https://servi-mentor.firebaseio.com",
+    "project_id": "servi-mentor",
+    "storage_bucket": "servi-mentor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33851561081:android:a21b89112621ada8",
+        "android_client_info": {
+          "package_name": "org.servi.servi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33851561081-q4nhhplea52pivpgm9losidcfe7dq8i2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.servi.servi",
+            "certificate_hash": "2fc96b029a257455a87aad836de2325abfab520a"
+          }
+        },
+        {
+          "client_id": "33851561081-30smbtns8t0br84t0llg6ton4qo6f03r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBopfYtsKyBRupTIqjpbVx3yw8rw9TfDOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33851561081-30smbtns8t0br84t0llg6ton4qo6f03r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
