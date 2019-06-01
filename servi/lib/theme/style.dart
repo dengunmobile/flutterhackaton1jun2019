@@ -7,7 +7,7 @@ ThemeData appTheme() {
   return ThemeData(
     primarySwatch: Colors.blue,
     backgroundColor: AppColors.backgroundColor,
-    //primaryColor: Color.fromARGB(103, 125, 141, 1)
+    primaryColor: Color.fromARGB(103, 125, 141, 1)
   );
 }
 

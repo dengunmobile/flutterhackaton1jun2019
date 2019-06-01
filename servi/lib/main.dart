@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:servi/screens/event_detail_screen.dart';
 import 'package:servi/screens/landing_screen.dart';
 import 'package:servi/service/auth_service.dart';
 
@@ -26,9 +27,13 @@ class MyAppBloc extends StatelessWidget {
       child: MaterialApp(
           title: 'Servi',
           theme: ThemeData(
-            primarySwatch: Colors.indigo,
+            primarySwatch: Colors.blueGrey,
           ),
-          home: LandingPage(),
+          initialRoute: "/",
+          routes: {
+            "/": (context) => LandingPage(),
+            "/details" : (context) => EventDetailScreen()
+          }
         ),
     );
   }
